@@ -14,7 +14,7 @@ main().catch(err => console.log(err));
 
 app.get('/', (req, res) => {
     console.log(process.env.DB_USER, '<--- ¿BBDD conectada?');
-    res.send('BACKEND WORKING 😀')
+    res.send('TRAILNEST BACKEND WORKING 😀🚴')
 })
 
 app.listen(port, ()=> {
