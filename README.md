@@ -5,8 +5,7 @@ Este proyecto es una página web dedicada a los amantes de las rutas naturales.
 Permite que los usuarios puedan crear rutas o verlas para completar, pudiendo filtrar por numerosas opciones, ver hostels y restaurantes cercanos para hacer una pausa y actividades cercanas a la localidad de la ruta, así como dejar sus valoraciones.
 
 ## Estado del Proyecto
-:construction: Proyecto en construcción. :construction:
-
+Proyecto en desarrollo.
 
 ## Funcionalidades principales
 Registro de usuarios.
