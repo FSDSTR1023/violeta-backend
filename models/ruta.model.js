@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+const mongoose = require('mongoose');
 
 const rutaSchema = new mongoose.Schema({
   nombre: { type: String, required: true },
@@ -22,6 +22,4 @@ const rutaSchema = new mongoose.Schema({
   timestamps: true
 });
 
-const Ruta = mongoose.model('Ruta', rutaSchema);
-
-export default Ruta;
+module.exports = mongoose.model('Ruta', rutaSchema);
