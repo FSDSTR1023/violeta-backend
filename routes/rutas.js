@@ -4,6 +4,6 @@ var router = express.Router()
 const RutaController = require('../controllers/rutas.controller')
 
 router.post("/", RutaController.createRuta)
-router.get("/:id", RutaController.getRutaById)
+router.get("/", RutaController.getRutaById)
 
 module.exports = router;

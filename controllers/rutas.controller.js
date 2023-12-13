@@ -15,7 +15,7 @@ async function createRuta(req, res) {
 }
 
 const getRutaById = async (req, res) => {
-  Ruta.findById(req.params.id)
+  Ruta.find()
   .then(Ruta => res.status(200).json(Ruta))
   .catch(error => {
       console.log(`Error finding the Ruta: ${error}`)
