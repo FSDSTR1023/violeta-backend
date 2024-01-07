@@ -3,10 +3,19 @@
     "axios": "^1.6.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2",
     "mongoose": "^8.0.3"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
-  }
+  },
+  "name": "violeta-backend",
+  "description": "Este proyecto es una página web dedicada a los amantes de las rutas naturales.\r Permite que los usuarios puedan crear rutas o verlas para completar, pudiendo filtrar por numerosas opciones, ver hostels y restaurantes cercanos para hacer una pausa y actividades cercanas a la localidad de la ruta, así como dejar sus valoraciones.",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC"
 }
