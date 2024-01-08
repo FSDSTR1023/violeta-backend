@@ -21,7 +21,7 @@ var rutas = require('./routes/rutas.js')
 var users = require('./routes/users.js')
 
 app.use("/rutas", rutas)
-// app.use("/users", users)
+app.use("/users", users)
 
 app.listen(port, ()=> {
     console.log('Server running on port: ', port);
