@@ -32,7 +32,6 @@ async function editUserProfile(req, res) {
     }
 }
 
-
 async function getAllUsers(req,res) {
     User.find()
     .then((users) => {
@@ -56,7 +55,6 @@ async function getUserById(req,res) {
         res.status(400).json(err)
     })
 }
-
 
 async function loginUser(req,res) {
     User.findOne({email:req.body.email})
@@ -140,7 +138,6 @@ async function getUserFriends(req, res) {
         res.status(400).json({ error: 'Could not retrieve user friends, please try again' });
     }
 }
-
 
 async function removeFriend(req, res) {
     const userId = req.params.id;
