@@ -35,7 +35,6 @@ async function editUserProfile(req, res) {
 async function getAllUsers(req,res) {
     User.find()
     .then((users) => {
-        console.log('All users have been found', users)
         res.status(200).json(users)
     })
     .catch((err) => {
