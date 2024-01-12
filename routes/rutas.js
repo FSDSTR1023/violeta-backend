@@ -4,15 +4,15 @@ var router = express.Router()
 const RutaController = require('../controllers/rutas.controller')
 
 // Rutas para las operaciones CRUD de las rutas
-router.post('/ruta', rutaController.createRuta);
-router.get('/ruta/:rutaId', rutaController.getRutaById);
-router.put('/ruta/:rutaId', rutaController.editRuta);
+router.post('/ruta', RutaController.createRuta);
+router.get('/ruta/:rutaId', RutaController.getRutaById);
+router.put('/ruta/:rutaId', RutaController.editRuta);
 
 // Rutas para obtener diferentes conjuntos de rutas
-router.get('/rutas', rutaController.getAllRutas);
-router.get('/rutas/completadas', rutaController.getCompletedRutas);
-router.get('/rutas/incompletas', rutaController.getIncompleteRutas);
-router.get('/rutas/en-curso', rutaController.getOngoingRutas);
+router.get('/rutas', RutaController.getAllRutas);
+router.get('/rutas/completadas', RutaController.getCompletedRutas);
+router.get('/rutas/incompletas', RutaController.getIncompleteRutas);
+router.get('/rutas/en-curso', RutaController.getOngoingRutas);
 
 
 module.exports = router;
