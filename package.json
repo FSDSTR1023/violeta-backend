@@ -9,7 +9,7 @@
     "mongoose": "^8.0.3"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.3"
   },
   "name": "violeta-backend",
   "description": "Este proyecto es una página web dedicada a los amantes de las rutas naturales.\r Permite que los usuarios puedan crear rutas o verlas para completar, pudiendo filtrar por numerosas opciones, ver hostels y restaurantes cercanos para hacer una pausa y actividades cercanas a la localidad de la ruta, así como dejar sus valoraciones.",
