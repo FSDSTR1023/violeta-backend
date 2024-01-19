@@ -56,7 +56,7 @@ async function getUserById(req,res) {
 }
 
 async function loginUser(req,res) {
-    User.findOne({email:req.body.email})
+    User.findOne({nickname:req.body.nickname})
     .then((user) => {
        if (!user) {
         return res.status(404).json({msg:'User not found'})
@@ -77,7 +77,7 @@ async function deleteUser(req, res) {
     const userId = req.params.id;
 
     try {
-        const user = await User.findByIdAndRemove(userId);
+        const user = await User.findByIdAndDelete(userId);
 
         if (!user) {
             return res.status(404).json({ msg: 'User not found' });

@@ -43,5 +43,5 @@ Google Maps API
 Clona el repositorio.
 Ejecuta `npm install` para instalar las dependencias.
 Configura las variables de entorno en un archivo `.env`.
-Ejecuta `npm run dev` para iniciar el servidor en modo de desarrollo con nodemon.
+Ejecuta `nodemon app.js` para iniciar el servidor en modo de desarrollo con nodemon.
 
