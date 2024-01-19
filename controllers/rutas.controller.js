@@ -88,6 +88,23 @@ const getOngoingRutas = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+async function deleteRuta(req, res) {
+  const rutaId = req.params.id;
+
+  try {
+      const ruta = await Ruta.findByIdAndDelete(rutaId);
+
+      if (!ruta) {
+          return res.status(404).json({ msg: 'Ruta not found' });
+      }
+
+      console.log('Ruta deleted:', ruta);
+      res.status(200).json({ msg: 'Ruta deleted successfully' });
+  } catch (err) {
+      console.error('Error deleting ruta:', err.message);
+      res.status(400).json({ error: 'Could not delete ruta, please try again' });
+  }
+}
 
 module.exports = {
   createRuta,
@@ -97,4 +114,5 @@ module.exports = {
   getCompletedRutas,
   getIncompleteRutas,
   getOngoingRutas,
+  deleteRuta
 };
