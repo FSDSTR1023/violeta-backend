@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 const User = require('../models/user.model')
 
 async function createUser(req,res) {
@@ -55,22 +56,48 @@ async function getUserById(req,res) {
     })
 }
 
-async function loginUser(req,res) {
-    User.findOne({nickname:req.body.nickname})
-    .then((user) => {
-       if (!user) {
-        return res.status(404).json({msg:'User not found'})
+async function loginUser(req, res) {
+    const { nickname, password } = req.body;
+  
+    User.findOne({ nickname })
+      .then((user) => {
+        if (!user) {
+          return res.status(401).json({ error: 'User not found' });
         }
-        if((!req.body.password)||(user.password != req.body.password)  ){
-        return res.status(403).json({msg:'Forbidden'})
-        
+  
+        if (user.password !== password) {
+          return res.status(401).json({ error: 'Incorrect password' });
         }
-        res.status(200).json({msg: 'Login succesful'})
-    })
-    .catch((err) => {
-        console.log(err,'not correct')
-        res.status(400).json(err)
-    })
+  
+        jwt.sign(
+          { id: user._id, nickname: user.nickname },
+          process.env.JWT_SECRET_KEY,
+          (err, token) => {
+            if (err) {
+              return res.status(401).json({ error: err.message });
+            } else {
+              res.cookie('token', token, {
+                httpOnly: true,
+                secure: false,
+                expires: new Date('2100-12-17T03:24:00'),
+              }).status(201).send();
+            }
+          }
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      });
+  }
+
+async function profileUser(req, res) {
+    const user = users.find((user) => user.id === req.user.id);
+    res.json({ ...user, password: undefined });
+}
+
+async function logOut(req, res) {
+    res.clearCookie("token").send();
 }
 
 async function deleteUser(req, res) {
@@ -172,6 +199,8 @@ module.exports = {
     getAllUsers,
     getUserById,
     loginUser,
+    profileUser,
+    logOut,
     deleteUser,
     addFriend,
     getUserFriends,
