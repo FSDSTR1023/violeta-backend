@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = 4000;
 const cors = require('cors');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 
 app.use(express.json());
 app.use(cookieParser());

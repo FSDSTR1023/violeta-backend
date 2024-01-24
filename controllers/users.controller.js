@@ -76,10 +76,11 @@ async function loginUser(req, res) {
             if (err) {
               return res.status(401).json({ error: err.message });
             } else {
-              res.cookie('token', token, {
+                console.log('JWT Token:', token)
+                res.cookie('token', token, {
                 httpOnly: true,
-                secure: false,
-                expires: new Date('2100-12-17T03:24:00'),
+                secure: true,
+                sameSite: 'None'
               }).status(201).send();
             }
           }
@@ -92,8 +93,16 @@ async function loginUser(req, res) {
   }
 
 async function profileUser(req, res) {
-    const user = users.find((user) => user.id === req.user.id);
-    res.json({ ...user, password: undefined });
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+        if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 }
 
 async function logOut(req, res) {

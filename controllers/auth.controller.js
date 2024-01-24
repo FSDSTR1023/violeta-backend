@@ -3,7 +3,7 @@ const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 async function authMiddleware(req, res, next) {
   const token = req.cookies.token;
-
+  console.log('Token:', token)
   if (!token) {
     res.status(401).send({ error: "No token provided" });
     return;
