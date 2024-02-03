@@ -18,33 +18,37 @@ async function createRuta(req, res) {
 }
 // obtener ruta por ID
 const getRutaById = async (req, res) => {
-  const { rutaId } = req.params;
-  Ruta.findById(rutaId)
-  .then(Ruta => res.status(200).json(Ruta))
-  .catch(error => {
-      console.log(`Error finding the Ruta: ${error}`)
-      res.status(400).json(error)
-  })
+  try {
+    const { id: rutaId } = req.params;
+    const ruta = await Ruta.findById(rutaId);
+
+    if (!ruta) {
+      return res.status(404).json({ message: 'Ruta not found' });
+    }
+
+    res.status(200).json(ruta);
+  } catch (error) {
+    console.error(`Error finding the Ruta: ${error}`);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 }
 
 // editar una ruta por su ID
-const editRuta = async (req, res) => {
-  const { rutaId } = req.params;
-  const { newData } = req.body;
+const updateRuta = async (req, res) => {
+  const { id: rutaId } = req.params;
+  const updatedRutaData = req.body
+  console.log('Params', req.params)
+  console.log('rutaId:', rutaId);
+  console.log('Req.body', req.body)
+  console.log('updatedRutaData:', updatedRutaData);
 
   try {
-    const updatedRuta = await Ruta.findByIdAndUpdate(rutaId, newData, { new: true });
-
-    if (updatedRuta) {
-      console.log(`Ruta updated successfully: ${updatedRuta}`);
-      res.status(200).json(updatedRuta);
-    } else {
-      console.log(`Ruta with ID ${rutaId} not found.`);
-      res.status(404).json({ error: 'Ruta not found' });
-    }
+    const updatedRuta = await Ruta.findByIdAndUpdate(rutaId, updatedRutaData, { new: true });
+    console.log('updatedRuta:', updatedRuta);
+    res.status(200).json(updatedRuta);
   } catch (error) {
-    console.error(`Error updating the Ruta: ${error}`);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error(`Error updating ruta with ID ${rutaId}:`, error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
@@ -110,7 +114,7 @@ async function deleteRuta(req, res) {
 module.exports = {
   createRuta,
   getRutaById,
-  editRuta,
+  updateRuta,
   getAllRutas,
   getCompletedRutas,
   getIncompleteRutas,
