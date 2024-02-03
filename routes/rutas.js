@@ -5,8 +5,9 @@ const RutaController = require('../controllers/rutas.controller')
 
 // Rutas para las operaciones CRUD de las rutas
 router.post('/', RutaController.createRuta);
-router.get('/:rutaId', RutaController.getRutaById);
-router.put('/:rutaId', RutaController.editRuta);
+router.get('/:id', RutaController.getRutaById);
+router.put('/:creatorId/:id', RutaController.editRuta);
+
 
 // Rutas para obtener diferentes conjuntos de rutas
 router.get('/', RutaController.getAllRutas);

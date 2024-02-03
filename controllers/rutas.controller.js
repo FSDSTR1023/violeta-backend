@@ -18,7 +18,8 @@ async function createRuta(req, res) {
 }
 // obtener ruta por ID
 const getRutaById = async (req, res) => {
-  Ruta.find()
+  const { rutaId } = req.params;
+  Ruta.findById(rutaId)
   .then(Ruta => res.status(200).json(Ruta))
   .catch(error => {
       console.log(`Error finding the Ruta: ${error}`)
