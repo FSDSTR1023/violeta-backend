@@ -37,10 +37,6 @@ const getRutaById = async (req, res) => {
 const updateRuta = async (req, res) => {
   const { id: rutaId } = req.params;
   const updatedRutaData = req.body
-  console.log('Params', req.params)
-  console.log('rutaId:', rutaId);
-  console.log('Req.body', req.body)
-  console.log('updatedRutaData:', updatedRutaData);
 
   try {
     const updatedRuta = await Ruta.findByIdAndUpdate(rutaId, updatedRutaData, { new: true });
