@@ -40,7 +40,6 @@ const updateRuta = async (req, res) => {
 
   try {
     const updatedRuta = await Ruta.findByIdAndUpdate(rutaId, updatedRutaData, { new: true });
-    console.log('updatedRuta:', updatedRuta);
     res.status(200).json(updatedRuta);
   } catch (error) {
     console.error(`Error updating ruta with ID ${rutaId}:`, error);

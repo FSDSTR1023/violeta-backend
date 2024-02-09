@@ -17,21 +17,22 @@ async function createUser(req,res) {
 async function editUserProfile(req, res) {
     const userId = req.params.id;
     const updatedData = req.body;
-
+  
     try {
-        const user = await User.findByIdAndUpdate(userId, updatedData, { new: true });
-
-        if (!user) {
-            return res.status(404).json({ msg: 'User not found' });
-        }
-
-        console.log('User profile updated:', user);
-        res.status(200).json(user);
+      const user = await User.findByIdAndUpdate(userId, { $set: updatedData }, { new: true });
+  
+      if (!user) {
+        return res.status(404).json({ msg: 'User not found' });
+      }
+  
+      console.log('User profile updated:', user);
+      res.status(200).json(user);
     } catch (err) {
-        console.error('Error updating user profile:', err.message);
-        res.status(400).json({ error: 'Could not update user profile, please try again' });
+      console.error('Error updating user profile:', err.message);
+      res.status(400).json({ error: 'Could not update user profile, please try again' });
     }
-}
+  }
+  
 
 async function getAllUsers(req,res) {
     User.find()

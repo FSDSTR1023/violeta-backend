@@ -18,7 +18,7 @@ const rutaSchema = new mongoose.Schema({
   date: { type: Date, required: true },
   totalTimeSpent: { type: Number, required: true },
   trailType: { type: String, enum: ['Loop', 'Point-to-Point', 'Out-and-Back', 'Circuito'], required: true },
-  imageUrl: { type: String },
+  imageUrl: { type: [String] },
   creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   user: {
     type: mongoose.Schema.Types.ObjectId,
