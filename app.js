@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: 'https://trailnest.netlify.app/',
+    origin: 'https://trailnest.netlify.app',
     credentials: true,
   })
 );
