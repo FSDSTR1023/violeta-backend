@@ -23,13 +23,14 @@ class MailController{
             res.send('Email sent')
         })
         .catch((error) => {
-            res.error("Error sending mail")
+            console.error("Error sending mail:", error);
+            res.status(500).send("Error sending mail");
         })
     }
 
 
 }
 
-// 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 api key
+
 
 module.exports = MailController
