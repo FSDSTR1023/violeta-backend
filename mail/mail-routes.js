@@ -4,7 +4,7 @@ const MailController = require("./mail.controller")
 const mailController = new MailController()
 
 
-router.post("/", mailController.sendEmail.bind(mailController)) 
-   
+router.post("/", mailController.sendEmail.bind(mailController))
+
 
 module.exports = router;
