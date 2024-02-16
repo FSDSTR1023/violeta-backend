@@ -4,7 +4,7 @@ class MailController{
     constructor() {
         sgMail.setApiKey(process.env.SENDGRID_API_KEY)
         this.msg = {
-            from: "joel.montilla.heredia@gmail.com"
+            from: "trailnest1@gmail.com"
         }
     }
 
@@ -12,7 +12,7 @@ class MailController{
         
         const msg = {
         ...this.msg,
-        to: 'test@example.com', // Change to your recipient
+        to: 'joel.montilla.heredia@gmail.com', // Change to your recipient
         subject: 'Sending with SendGrid is Fun',
         text: 'and easy to do anywhere, even with Node.js',
         html: '<strong>and easy to do anywhere, even with Node.js</strong>',
