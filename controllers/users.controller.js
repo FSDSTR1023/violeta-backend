@@ -31,7 +31,7 @@ async function editUserProfile(req, res) {
       console.error('Error updating user profile:', err.message);
       res.status(400).json({ error: 'Could not update user profile, please try again' });
     }
-  }
+}
   
 
 async function getAllUsers(req,res) {
@@ -91,7 +91,7 @@ async function loginUser(req, res) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
       });
-  }
+}
 
 async function profileUser(req, res) {
     try {
