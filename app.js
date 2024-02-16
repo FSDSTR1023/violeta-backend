@@ -25,13 +25,16 @@ app.get('/', (req, res) => {
     console.log(process.env.DB_USER, '<--- ¿BBDD conectada?');
     res.send('TRAILNEST BACKEND WORKING 😀🚴')
 })
-
-
+var indexRouter= require("./health/health-routes.js")
+var mailRouter = require("./mail/mail-routes.js")
 var rutas = require('./routes/rutas.js')
 var users = require('./routes/users.js');
 
 app.use("/rutas", rutas)
 app.use("/users", users)
+app.use("/health", indexRouter)
+app.use("/mail", mailRouter)
+
 
 app.listen(port, ()=> {
     console.log('Server running on port: ', port);
