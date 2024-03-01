@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const User = require('../models/user.model')
 const Ruta = require('../models/ruta.model')
+const cloudinary = require('cloudinary')
 
 
 
@@ -90,8 +91,14 @@ const getOngoingRutas = async (req, res) => {
 };
 async function deleteRuta(req, res) {
   const rutaId = req.params.id;
+  const publicId = req.body.publicId;
+  console.log('Recibido', req.params)
 
   try {
+      if (!publicId) {
+          return res.status(400).json({ error: 'Missing publicId in the request body' });
+      }
+      await cloudinary.uploader.destroy(publicId);
       const ruta = await Ruta.findByIdAndDelete(rutaId);
 
       if (!ruta) {
