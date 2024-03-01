@@ -14,5 +14,6 @@ router.delete('/:id', usersController.deleteUser);
 router.post('/add-friend/:id', usersController.addFriend);
 router.get('/friends/:id', usersController.getUserFriends);
 router.delete('/remove-friend/:id', usersController.removeFriend);
+router.put('/:id/level', authMiddleware, usersController.updateLevel);
 
 module.exports = router;

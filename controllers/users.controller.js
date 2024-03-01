@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user.model')
+const Route = require('../models/ruta.model')
+
+
 
 async function createUser(req,res) {
     User.create(req.body)
@@ -203,6 +206,38 @@ async function removeFriend(req, res) {
     }
 }
 
+async function updateLevel(userId) {
+    try {
+        // rutas creadas por el usuario
+        const userRoutes = await Route.find({ creator: userId });
+
+        // calcular la cantidad de rutas creadas por el usuario
+        const routeCount = userRoutes.length;
+
+        // Calcular la cantidad total de imágenes asociadas a las rutas del usuario
+        let totalImages = 0;
+        userRoutes.forEach(route => {
+            totalImages += route.imageUrl.length;
+        });
+
+        // Determinar el nivel del usuario en función de la cantidad de rutas y las imágenes asociadas
+        let level = 'Principiante';
+        if (routeCount >= 6 && routeCount <= 15 && totalImages >= 5) {
+            level = 'Avanzado';
+        } else if (routeCount > 15 && totalImages >= 15) {
+            level = 'Experto';
+        }
+
+        // Actualizar el nivel del usuario en la base de datos
+        await User.findByIdAndUpdate(userId, { level });
+        res.status(200).json({msg:'Nivel de usuario actualizado.'})
+    } catch (error) {
+        console.error('Error updating user level:', error.message);
+        throw new Error('Could not update user level');
+    }
+}
+
+
 module.exports = {
     createUser,
     editUserProfile,
@@ -214,5 +249,6 @@ module.exports = {
     deleteUser,
     addFriend,
     getUserFriends,
-    removeFriend
+    removeFriend,
+    updateLevel
 }

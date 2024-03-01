@@ -11,6 +11,11 @@ const userSchema = new mongoose.Schema({
     enum: ['connected', 'disconnected', 'pending'],
     default: 'pending'
   },
+  level: {
+    type:String,
+    enum:['Principiante', 'Avanzado', 'Experto'],
+    default:'Principiante'
+  },
   createdAt: { type: Date },
   modifiedAt: { type: Date },
   deletedAt: { type: Date, default: null }
