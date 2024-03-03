@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const User = require('../models/user.model')
 const Ruta = require('../models/ruta.model')
 const cloudinary = require('cloudinary').v2
-
+const userId = require('../controllers/users.controller')
 
 
 // crear ruta
@@ -125,7 +125,36 @@ async function deleteRuta(req, res) {
   }
 }
 
+async function updateLevel(userId) {
+  try {
+      //  rutas creadas por el usuario
+      const userRoutes = await Ruta.find({ creator: userId });
 
+      //  la cantidad de rutas creadas por el usuario
+      const routeCount = userRoutes.length;
+
+      //  la cantidad total de imágenes asociadas a las rutas del usuario
+      let totalImages = 0;
+      userRoutes.forEach(route => {
+          totalImages += route.imageUrl.length;
+      });
+
+      //  el nivel del usuario en función de la cantidad de rutas y las imágenes asociadas
+      let level = 'Principiante';
+      if (routeCount >= 6 && routeCount <= 15 && totalImages >= 5) {
+          level = 'Avanzado';
+      } else if (routeCount > 15 && totalImages >= 15) {
+          level = 'Experto';
+      }
+
+      // actualizar el nivel del usuario en la base de datos
+      await User.findByIdAndUpdate(userId, { level });
+      console.log('Nivel de usuario actualizado:', level);
+  } catch (error) {
+      console.error('Error al actualizar el nivel del usuario:', error.message);
+      throw new Error('No se pudo actualizar el nivel del usuario');
+  }
+}
 
 module.exports = {
   createRuta,
@@ -135,5 +164,6 @@ module.exports = {
   getCompletedRutas,
   getIncompleteRutas,
   getOngoingRutas,
-  deleteRuta
+  deleteRuta,
+  updateLevel
 };
