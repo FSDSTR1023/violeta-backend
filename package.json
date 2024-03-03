@@ -2,7 +2,11 @@
   "dependencies": {
     "@sendgrid/mail": "^8.1.1",
     "axios": "^1.6.2",
+<<<<<<< HEAD
     "cloudinary": "^2.0.2",
+=======
+    "cloudinary": "^2.0.1",
+>>>>>>> 948c687b620d705be608a69037ee8e73c7794ad6
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "debug": "^4.3.2",
