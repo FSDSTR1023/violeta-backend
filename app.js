@@ -15,7 +15,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: 'https://trailnest.netlify.app',
-    // origin: 'http://localhost:5173',
+    origin: 'http://localhost:5173',
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Authorization',
