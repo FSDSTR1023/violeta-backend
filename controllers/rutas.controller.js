@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const User = require('../models/user.model')
 const Ruta = require('../models/ruta.model')
-const cloudinary = require('cloudinary')
+const cloudinary = require('cloudinary').v2
 
 
 
@@ -91,27 +91,41 @@ const getOngoingRutas = async (req, res) => {
 };
 async function deleteRuta(req, res) {
   const rutaId = req.params.id;
-  const publicId = req.body.publicId;
-  console.log('Recibido', req.params)
+  const publicId = req.query.publicId;
 
   try {
-      if (!publicId) {
-          return res.status(400).json({ error: 'Missing publicId in the request body' });
-      }
-      await cloudinary.uploader.destroy(publicId);
-      const ruta = await Ruta.findByIdAndDelete(rutaId);
+    if (!publicId) {
+      return res.status(400).json({ error: 'Missing publicId in the request body' });
+    }
 
-      if (!ruta) {
-          return res.status(404).json({ msg: 'Ruta not found' });
-      }
+    const folderName = 'rutas';
+    const fullPublicId = `${folderName}/${publicId}`;
+    console.log('Deleting image with publicId:', fullPublicId);
+    
+    const cloudinaryResult = await cloudinary.uploader.destroy([fullPublicId]);
+    console.log('Cloudinary deletion result:', cloudinaryResult);
 
-      console.log('Ruta deleted:', ruta);
-      res.status(200).json({ msg: 'Ruta deleted successfully' });
+    // Check if Cloudinary deletion was successful
+    if (cloudinaryResult.result !== 'ok') {
+      return res.status(400).json({ error: 'Error deleting image from Cloudinary' });
+    }
+
+    const ruta = await Ruta.findByIdAndDelete(rutaId);
+
+
+    if (!ruta) {
+      return res.status(404).json({ msg: 'Ruta not found' });
+    }
+
+    console.log('Ruta deleted:', ruta);
+    res.status(200).json({ msg: 'Ruta deleted successfully' });
   } catch (err) {
-      console.error('Error deleting ruta:', err.message);
-      res.status(400).json({ error: 'Could not delete ruta, please try again' });
+    console.error('Error deleting ruta:', err.message);
+    res.status(400).json({ error: 'Could not delete ruta, please try again' });
   }
 }
+
+
 
 module.exports = {
   createRuta,
