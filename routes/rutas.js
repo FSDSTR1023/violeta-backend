@@ -15,5 +15,5 @@ router.get('/incompletas', RutaController.getIncompleteRutas);
 router.get('/en-curso', RutaController.getOngoingRutas);
 
 router.delete('/:id', RutaController.deleteRuta)
-
+router.put('/:id/level', RutaController.updateLevel)
 module.exports = router;
