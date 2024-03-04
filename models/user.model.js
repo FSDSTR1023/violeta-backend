@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   nickname: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
+  avatar: { type: String },
   state: {
     type: String,
     enum: ['connected', 'disconnected', 'pending'],
