@@ -7,15 +7,18 @@ const userId = require('../controllers/users.controller')
 
 // crear ruta
 async function createRuta(req, res) {
-  Ruta.create(req.body)
-    .then(RutaDoc => {
-      console.log(`Ruta create worked well: ${RutaDoc}`)
-      res.status(200).json(RutaDoc)
-    })
-    .catch(error => {
-      console.log(`Creating a new ruta went wrong! Try again 😞 ${error}`)
-      res.status(400).json({ error: 'Failed to create ruta' })
-    });
+  try {
+    const ruta = await Ruta.create(req.body);
+    console.log(`Ruta create worked well: ${ruta}`);
+    
+    // Actualizar el nivel del usuario después de crear la ruta
+    await updateLevel(req.body.creator);
+    
+    res.status(200).json(ruta);
+  } catch (error) {
+    console.log(`Creating a new ruta went wrong! Try again 😞 ${error}`);
+    res.status(400).json({ error: 'Failed to create ruta' });
+  }
 }
 // obtener ruta por ID
 const getRutaById = async (req, res) => {
