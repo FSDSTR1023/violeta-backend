@@ -158,7 +158,40 @@ async function updateLevel(userId) {
       throw new Error('No se pudo actualizar el nivel del usuario');
   }
 }
+async function calculateProgress(userId) {
+  try {
 
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new Error('Usuario no encontrado');
+    }
+
+    
+    const userRoutes = await Ruta.find({ creator: userId });
+    const routeCount = userRoutes.length;
+
+
+    let progress = '';
+
+    if (user.level === 'Principiante') {
+      const remainingRoutes = 6 - routeCount;
+      const remainingImages = 0; 
+      progress = `Faltan ${remainingRoutes} rutas y ${remainingImages} imágenes para subir de nivel`;
+    } else if (user.level === 'Avanzado') {
+      const remainingRoutes = 15 - routeCount;
+      const remainingImages = 15;
+      progress = `Faltan ${remainingRoutes} rutas y ${remainingImages} imágenes para subir de nivel`;
+    } else {
+      progress = '¡Eres un experto!';
+    }
+
+    return progress;
+  } catch (error) {
+    console.error('Error al calcular el progreso del usuario:', error.message);
+    throw new Error('No se pudo calcular el progreso del usuario');
+  }
+}
 module.exports = {
   createRuta,
   getRutaById,
