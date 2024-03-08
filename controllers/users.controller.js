@@ -5,17 +5,17 @@ const Route = require('../models/ruta.model')
 
 
 
-async function createUser(req,res) {
-    User.create(req.body)
-    .then((user) => {
-        console.log('The user has been created', user)
-        res.status(200).json(user)
-    })
-    .catch((err) => {
-        console.log(err,'Could not create a new user, please try again')
-        res.status(400).json(err)
-    })
-}
+async function createUser(req, res) {
+    try {   
+        const user = await User.create(req.body);
+        console.log('The user has been created', user);
+        res.status(201).json({ success: true, data: user });
+    } catch (err) {
+        console.error('Could not create a new user, please try again', err);
+        res.status(400).json({ success: false, error: 'Could not create a new user, please try again' });
+    }
+  }
+  
 
 async function editUserProfile(req, res) {
     const userId = req.params.id;
