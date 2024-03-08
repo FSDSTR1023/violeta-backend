@@ -114,6 +114,7 @@ async function profileUser(req, res) {
 }
 
 async function logOut(req, res) {
+    await revokeToken(req.user.id);
     res.clearCookie("token").send();
 }
 
